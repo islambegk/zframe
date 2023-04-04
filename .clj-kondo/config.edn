@@ -1,0 +1,2 @@
+{:lint-as {zframe.core/defx clojure.core/defn
+           zframe.core/defe clojure.core/defn}}

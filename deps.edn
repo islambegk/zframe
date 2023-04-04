@@ -1,0 +1,39 @@
+{:paths ["src"]
+
+ :deps {org.clojure/clojurescript   {:mvn/version "1.11.60"}
+        org.clojure/clojure         {:mvn/version "1.11.1"}
+        reagent/reagent             {:mvn/version "1.2.0"}
+        re-frame/re-frame           {:mvn/version "1.3.0"}
+        com.google.guava/guava      {:mvn/version "31.1-jre"}
+        com.health-samurai/macrocss {:mvn/version "0.4.0"}
+        niquola/route-map           {:git/url "https://github.com/niquola/route-map"
+                                     :git/sha "7a697aa274034e373cb38d4e2d3b0cd66f27709f"}}
+
+ :aliases
+ {:test
+  {:extra-paths ["test"]
+   :extra-deps {healthsamurai/matcho                    {:mvn/version "0.3.10"}}}
+
+  :build {:deps {io.github.seancorfield/build-clj {:git/tag "v0.8.2" :git/sha "0ffdb4c"}}
+          :ns-default build}
+
+  :nrepl
+  {:extra-deps  {refactor-nrepl/refactor-nrepl {:mvn/version "3.6.0"}
+                 cider/cider-nrepl             {:mvn/version "0.30.0"}
+                 re-frisk/re-frisk             {:mvn/version "1.6.0"}
+                 binaryage/devtools            {:mvn/version "1.0.6"}
+                 thheller/shadow-cljs          {:mvn/version "2.22.9"}}
+
+   :main-opts   ["-m" "nrepl.cmdline"
+                 "-b" "0.0.0.0"
+                 "--middleware"
+                 "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware,shadow.cljs.devtools.server.nrepl/middleware]"]
+
+   :jvm-opts    ^:replace ["-XX:-OmitStackTraceInFastThrow"
+                           "-XX:+UnlockDiagnosticVMOptions"
+                           "-XX:+DebugNonSafepoints"
+                           ;; Limit JVM heap (for OOM testing)
+                           ;; "-Xmx1g" "-Xms1g"
+                           "-Djdk.attach.allowAttachSelf"]}
+
+  :neil {:project {:name healthsamurai/zframe}}}}
